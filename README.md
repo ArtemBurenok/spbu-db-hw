@@ -1,1 +1,0 @@
-# spbu-db-hw
