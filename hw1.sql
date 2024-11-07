@@ -29,7 +29,7 @@ CREATE TABLE groups(
 	id SERIAL PRIMARY KEY,
 	full_name CHARACTER VARYING(250),
 	short_name CHARACTER VARYING(250),
-	students_ids TEXT
+	students_ids INTEGER[]
 );
 
 /*
@@ -42,7 +42,7 @@ CREATE TABLE students(
 	first_name CHARACTER VARYING(250),
 	last_name CHARACTER VARYING(250),
 	group_id INTEGER,
-	courses_ids TEXT
+	courses_ids INTEGER[]
 );
 
 /*
@@ -69,13 +69,13 @@ INSERT INTO courses (id, name, is_exam, min_grade, max_grade) VALUES
 (3, 'Chemistry', FALSE, 50, 100);
 
 INSERT INTO groups (id, full_name, short_name, students_ids) VALUES
-(1, 'Group A', 'GA', '1, 2'),
-(2, 'Group B', 'GB', '3');
+(1, 'Group A', 'GA', ARRAY[1, 2]),
+(2, 'Group B', 'GB', ARRAY[3]);
 
 INSERT INTO students (id, first_name, last_name, group_id, courses_ids) VALUES
-(1, 'John', 'Doe', 1, '1,2'),
-(2, 'Jane', 'Smith', 1, '1'),
-(3, 'Alice', 'Johnson', 2, '2,3');
+(1, 'John', 'Doe', 1, ARRAY[1,2]),
+(2, 'Jane', 'Smith', 1, ARRAY[1]),
+(3, 'Alice', 'Johnson', 2, ARRAY[2,3]);
 
 INSERT INTO course_grades (student_id, course_id, grade, grade_str) VALUES
 (1, 1, 85, 'B'),
@@ -86,7 +86,7 @@ INSERT INTO course_grades (student_id, course_id, grade, grade_str) VALUES
 
 -- Показ процедуры фильтрации и агрегации.
 
-SELECT * FROM students WHERE group_id = 1;
+SELECT * FROM students WHERE group_id = 1 LIMIT 10;
 
 SELECT course_id, AVG(grade) AS average_grade
 FROM course_grades
