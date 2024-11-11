@@ -101,6 +101,7 @@ HAVING AVG(student_courses.grade) > (
         GROUP BY s2.id
     ) AS other_students
 )
+LIMIT 10;
 
 /*
 4. Подсчитать количество студентов на каждом курсе.
@@ -110,3 +111,4 @@ HAVING AVG(student_courses.grade) > (
 SELECT student_courses.course_id, COUNT(*), AVG(grade) FROM students INNER JOIN student_courses 
 ON students.id = student_courses.student_id
 GROUP BY student_courses.course_id
+LIMIT 10;
