@@ -7,7 +7,7 @@
 - [x] ДЗ 1 (CREATE TABLE, Ограничения на поля, Первичные и внешние ключи, INSERT, WHERE, GROUP BY)
 - [x] ДЗ 2 (ALTER TABLE, INDEX, JOIN, HAVING, Агрегатные функции)
 - [x] ДЗ 3 (CTE, Временные таблицы, EXPLAIN ANALYZE, UNION ALL)
-- [ ] ДЗ 4 (Триггеры, транзакции, RAISE)
+- [x] ДЗ 4 (Триггеры, транзакции, RAISE)
 
 ## Домашнее задание 1
 
