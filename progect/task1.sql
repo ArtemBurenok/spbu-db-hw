@@ -1,32 +1,32 @@
 -- Информация о сделках с данными о трейдерах и акциях
-SELECT t.TradeID, s.Ticker, tr.TraderName, t.Quantity, t.Price, t.TotalValue
-FROM Trades t JOIN StockDim s ON t.StockID = s.StockID
-	 JOIN TraderDim tr ON t.TraderID = tr.TraderID
+SELECT t.tradeID, s.ticker, tr.traderName, t.quantity, t.price, t.totalValue
+FROM trades t JOIN stockDim s ON t.stockID = s.stockID
+	 JOIN traderDim tr ON t.traderID = tr.traderID
 LIMIT 10;
 
 -- Общая сумма сделок для каждого трейдера
-SELECT tr.TraderName, SUM(t.TotalValue) OVER (PARTITION BY tr.TraderID) AS CumulativeTotalValue
-FROM Trades t JOIN TraderDim tr ON t.TraderID = tr.TraderID
+SELECT tr.traderName, SUM(t.totalValue) OVER (PARTITION BY tr.traderID) AS CumulativeTotalValue
+FROM trades t JOIN traderDim tr ON t.traderID = tr.traderID
 ORDER BY CumulativeTotalValue
 LIMIT 10;
 
 -- Общее количество сделок и общая стоимость сделок по каждому трейдеру
-SELECT tr.TraderName, COUNT(t.TradeID) AS TotalTrades, SUM(t.TotalValue) AS TotalTradeValue
-FROM Trades t JOIN TraderDim tr ON t.TraderID = tr.TraderID
-GROUP BY tr.TraderName
+SELECT tr.traderName, COUNT(t.tradeID) AS TotalTrades, SUM(t.totalValue) AS TotalTradeValue
+FROM trades t JOIN traderDim tr ON t.traderID = tr.traderID
+GROUP BY tr.traderName
 LIMIT 10
 
 -- Трейдеры, которые совершили более 2 сделок
-SELECT tr.TraderName, COUNT(t.TradeID) AS TotalTrades
-FROM Trades t JOIN TraderDim tr ON t.TraderID = tr.TraderID
-GROUP BY tr.TraderName
-HAVING COUNT(t.TradeID) > 2
+SELECT tr.traderName, COUNT(t.tradeID) AS TotalTrades
+FROM trades t JOIN traderDim tr ON t.traderID = tr.traderID
+GROUP BY tr.traderName
+HAVING COUNT(t.tradeID) > 2
 LIMIT 10;
 
 -- Список всех трейдеров и акций
-SELECT TraderName AS Name, 'Trader'
-FROM TraderDim
+SELECT traderName AS Name, 'Trader'
+FROM traderDim
 UNION
-SELECT CompanyName AS Name, 'Stock'
-FROM StockDim
+SELECT companyName AS Name, 'Stock'
+FROM stockDim
 LIMIT 10;
