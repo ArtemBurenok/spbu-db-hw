@@ -1,5 +1,5 @@
 -- Информация о сделках с данными о трейдерах и акциях
-SELECT t.trade_id, s.ticker, tr.traderName, t.quantity, t.price, t.total_value
+SELECT t.trade_id, s.ticker, tr.trader_name, t.quantity, t.price, t.total_value
 FROM trades t JOIN stock_dim s ON t.stock_id = s.stock_id
 	 JOIN trader_dim tr ON t.trader_id = tr.trader_id
 LIMIT 10;
