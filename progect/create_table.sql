@@ -1,27 +1,27 @@
-CREATE TABLE StockDim (
-    StockID SERIAL PRIMARY KEY,
-    Ticker VARCHAR(10) NOT NULL,
-    CompanyName VARCHAR(100) NOT NULL,
-    Sector VARCHAR(50),
-    Industry VARCHAR(50),
+CREATE TABLE stock_dim (
+    stock_id SERIAL PRIMARY KEY,
+    ticker VARCHAR(10) NOT NULL,
+    company_name VARCHAR(100) NOT NULL,
+    sector VARCHAR(50),
+    industry VARCHAR(50),
     ISIN VARCHAR(12)
 );
 
-CREATE TABLE TraderDim (
-    TraderID SERIAL PRIMARY KEY,
-    TraderName VARCHAR(100) NOT NULL,
-    AccountType VARCHAR(50),
-    RegisterDate DATE,
-    Location VARCHAR(100)
+CREATE TABLE trader_dim (
+    trader_id SERIAL PRIMARY KEY,
+    trader_name VARCHAR(100) NOT NULL,
+    account_type VARCHAR(50),
+    register_date DATE,
+    location VARCHAR(100)
 );
 
-CREATE TABLE Trades (
-    TradeID SERIAL PRIMARY KEY,
-    StockID INT NOT NULL,
-    TraderID INT NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
-    TotalValue DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (StockID) REFERENCES StockDim(StockID),
-    FOREIGN KEY (TraderID) REFERENCES TraderDim(TraderID)
+CREATE TABLE trades (
+    trade_id SERIAL PRIMARY KEY,
+    stock_id INT NOT NULL,
+    trader_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    total_value DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (stock_id) REFERENCES stock_dim(stock_id),
+    FOREIGN KEY (trader_id) REFERENCES trader_dim(trader_id)
 );
