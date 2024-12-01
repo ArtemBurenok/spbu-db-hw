@@ -45,7 +45,8 @@ trader_details AS (
 
 SELECT td.trader_name, td.account_type, ts.ticker, ts.TotalQuantity, ts.TotalValue
 FROM trade_summary ts JOIN trader_details td ON ts.trader_id = td.trader_id
-ORDER BY td.trader_name, ts.ticker;
+ORDER BY td.trader_name, ts.ticker
+LIMIT 10;
 
 -- Ограничения на уровне таблиц
 
