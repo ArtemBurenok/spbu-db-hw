@@ -33,7 +33,7 @@ FROM trades t JOIN stock_dim s ON t.stock_id = s.stock_id
 
 
 WITH trade_summary AS (
-    SELECT t.trader_id, s.ticker, SUM(t.quantity) AS TotalQuantity, SUM(t.total_value) AS TotalValue
+    SELECT t.trader_id, s.ticker, SUM(t.quantity) AS total_quantity, SUM(t.total_value) AS total_value
     FROM trades t JOIN stock_dim s ON t.stock_id = s.stock_id
     GROUP BY t.trader_id, s.ticker
 ),
@@ -43,7 +43,7 @@ trader_details AS (
     FROM trader_dim tr
 )
 
-SELECT td.trader_name, td.account_type, ts.ticker, ts.TotalQuantity, ts.TotalValue
+SELECT td.trader_name, td.account_type, ts.ticker, ts.total_quantity, ts.total_value
 FROM trade_summary ts JOIN trader_details td ON ts.trader_id = td.trader_id
 ORDER BY td.trader_name, ts.ticker
 LIMIT 10;
@@ -51,10 +51,10 @@ LIMIT 10;
 -- Ограничения на уровне таблиц
 
 ALTER TABLE trades
-ADD CONSTRAINT check_Quantity CHECK (Quantity > 0);
+ADD CONSTRAINT check_quantity CHECK (quantity > 0);
 
 ALTER TABLE trades
-ADD CONSTRAINT check_Price CHECK (Price >= 0);
+ADD CONSTRAINT check_price CHECK (price >= 0);
 
 -- Триггер для валидации
 
