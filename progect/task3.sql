@@ -2,7 +2,7 @@
 
 -- Проверка TotalValue
 
-CREATE OR REPLACE FUNCTION ValidateTotalValue()
+CREATE OR REPLACE FUNCTION validate_total_value()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.total_value <> NEW.quantity * NEW.price THEN
@@ -13,9 +13,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_ValidateTotalValue
+CREATE TRIGGER trg_validate_total_value
 BEFORE INSERT OR UPDATE ON trades
-FOR EACH ROW EXECUTE FUNCTION ValidateTotalValue();
+FOR EACH ROW EXECUTE FUNCTION validate_total_value();
 
 -- Триггер для автоматического вычисления total_value
 
