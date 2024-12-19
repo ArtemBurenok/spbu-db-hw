@@ -5,6 +5,7 @@ FROM trades t JOIN stock_dim s ON t.stock_id = s.stock_id
 LIMIT 10;
 
 -- Общая сумма сделок для каждого трейдера
+
 SELECT tr.trader_name, SUM(t.total_value) OVER (PARTITION BY tr.trader_id) AS cumulative_total_value
 FROM trades t JOIN trader_dim tr ON t.trader_id = tr.trader_id
 ORDER BY cumulative_total_value
